@@ -1,7 +1,7 @@
 {
-  "name": "myProjectName",
+  "name": "winicert",
   "version": "1.0.0",
-  "description": "myProjectName",
+  "description": "winicert",
   "private": true,
   "license": "UNLICENSED",
   "engines": {
