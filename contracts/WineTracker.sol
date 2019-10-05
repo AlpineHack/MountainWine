@@ -41,7 +41,7 @@ contract WineTracker {
     }
 
     // Contract owner address
-    address owner;
+    address public owner;
 
     // Production fee for producing a wine shipment unit
     uint constant productionFee = 0.0001 ether;

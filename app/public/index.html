@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+</head>
+<body>
+    <div id="message"></div>
+    <script>
+    window.web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");    
+
+	const abi = [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_address",
+          "type": "address"
+        },
+        {
+          "name": "_infoHash",
+          "type": "string"
+        }
+      ],
+      "name": "registerProducer",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "name": "_clQuota",
+          "type": "uint32"
+        }
+      ],
+      "name": "setProducerQuota",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_producerId",
+          "type": "uint32"
+        },
+        {
+          "name": "_clContainerCapacity",
+          "type": "uint16"
+        },
+        {
+          "name": "_extendedInfoHash",
+          "type": "string"
+        }
+      ],
+      "name": "emitWineShipment",
+      "outputs": [],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_shipmentId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getWineShipmentInfo",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "string"
+        },
+        {
+          "name": "",
+          "type": "uint16"
+        },
+        {
+          "name": "",
+          "type": "bool"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
+
+    window.addEventListener('load', async () => {
+        let contract = {};
+        const contractAddress = "0x784d5FB08eC1EE7605D17b86C027e2e03DF2E123";
+        const contractMessage = async () => {
+			contract = new web3.eth.contract(abi, contractAddress);
+			console.log(contract)
+			let owner = await contract.owner;
+			
+			console.log(owner)
+        	return owner;
+        }
+        // Modern dapp browsers...
+        if (window.ethereum) {
+			window.web3 = new Web3(ethereum);
+			try {
+				// Request account access if needed
+				await ethereum.enable();
+				let owner = await contractMessage();
+				let elm = document.getElementById("message");
+				elm.innerHTML = owner;
+			} catch (error) {
+				console.log(error);
+			}
+        }
+        // Non-dapp browsers...
+        else {
+        	console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+        }
+    });
+    </script>
+</body>
+</html>
